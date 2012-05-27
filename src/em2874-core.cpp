@@ -123,9 +123,9 @@ EM2874Device* EM2874Device::AllocDevice()
 				// バスに繋がっているデバイスでループ
 				if (!boost::filesystem::is_directory(*dev_iter)) {
 					// 開く
-					if (pDev->openDevice(dev_iter->string().c_str())) {
+					if (pDev->openDevice(dev_iter->path().c_str())) {
 						isFound = true;
-						if(log) *log << "device: " << dev_iter->string() << std::endl;
+						if(log) *log << "device: " << dev_iter->path() << std::endl;
 						break;
 					}
 				}
@@ -351,7 +351,7 @@ int EM2874Device::getDeviceID()
 	if(!readI2C (EEPROM_ADDR, 2, buf, true))
 		return -1;
 
-	if(*(uint16_t*)buf == 0x003b)
+	if(buf[0] == 0x3b && buf[1] == 0x00)
 		return 2;
 
 	// Tuner Regで判断

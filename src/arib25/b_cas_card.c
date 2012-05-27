@@ -135,8 +135,6 @@ static void release_b_cas_card(void *bcas)
 static int init_b_cas_card(void *bcas)
 {
 	int m;
-	long ret;
-	size_t len;
 	
 	B_CAS_CARD_PRIVATE_DATA *prv;
 
@@ -152,8 +150,8 @@ static int init_b_cas_card(void *bcas)
 		return B_CAS_CARD_ERROR_NO_ENOUGH_MEMORY;
 	}
 
-	prv->reader = prv->pool;
-	prv->sbuf = prv->reader + 0x10;
+	prv->reader = (char *)prv->pool;
+	prv->sbuf = (uint8_t *)prv->reader + 0x10;
 	prv->rbuf = prv->sbuf + B_CAS_BUFFER_MAX;
 	prv->id.data = (int64_t *)(prv->rbuf + B_CAS_BUFFER_MAX);
 	prv->id_max = 16;
@@ -409,7 +407,8 @@ static int proc_emm_b_cas_card(void *bcas, uint8_t *src, int len)
 		if(!connect_card(prv, prv->reader)){
 			continue;
 		}
-		slen = setup_emm_receive_command(prv->sbuf, src, len);
+		slen = setup_emm_receive_command(prv->sbuf, src, len);
+
 		rlen = B_CAS_BUFFER_MAX;
 
 		ret = KtvCardTransmit(prv->carddev, prv->sbuf, slen, prv->rbuf, &rlen);
@@ -444,7 +443,8 @@ static B_CAS_CARD_PRIVATE_DATA *private_data(void *bcas)
 }
 
 static void teardown(B_CAS_CARD_PRIVATE_DATA *prv)
-{	if(prv->pool != NULL){
+{
+	if(prv->pool != NULL){
 		free(prv->pool);
 		prv->pool = NULL;
 	}

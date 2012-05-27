@@ -408,8 +408,6 @@ static void extract_emm_fixed_part(EMM_FIXED_PART *dst, uint8_t *src);
 static uint8_t *resync(uint8_t *head, uint8_t *tail, int32_t unit);
 static uint8_t *resync_force(uint8_t *head, uint8_t *tail, int32_t unit);
 
-static uint32_t crc32(uint8_t *head, uint8_t *tail);
-
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  interface method implementation
  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
