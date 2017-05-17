@@ -32,7 +32,7 @@ void usage(char *argv0)
 /* オプション情報 */
 struct Args {
 	bool b25;
-	bool stdout;
+	bool std_out;
 	int channel;
 	bool forever;
 	int recsec;
@@ -93,7 +93,7 @@ Args parseOption(int argc, char *argv[])
 	args.recsec    = atoi(recsecstr);
 	args.destfile = argv[optind++];
 	if (strcmp("-", args.destfile) == 0) {
-		args.stdout = true;
+		args.std_out = true;
 	}
 	
 	return args;
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 	// ログ出力先設定
-	std::ostream& log = args.stdout ? std::cerr : std::cout;
+	std::ostream& log = args.std_out ? std::cerr : std::cout;
 	log << "recfsusb2n ver. 0.9.2" << std::endl << "ISDB-T DTV Tuner FSUSB2N" << std::endl;
 	EM2874Device::setLog(&log);
 
@@ -157,7 +157,7 @@ int main(int argc, char **argv)
 
 	// 出力先ファイルオープン
 	FILE *dest;
-	if(!args.stdout) {
+	if(!args.std_out) {
 		dest = fopen(args.destfile, "w");
 		if (NULL == dest) {
 			std::cerr << "can't open file '" << args.destfile << "' to write." << std::endl;
@@ -238,7 +238,7 @@ int main(int argc, char **argv)
 	time_t time_end = time(NULL);
 
 	fflush(dest);
-	if(!args.stdout) {
+	if(!args.std_out) {
 		fclose(dest);
 	}
 
