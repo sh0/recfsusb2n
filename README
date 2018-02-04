@@ -1,5 +1,5 @@
 地デジTV TunerのFSUSB2N向け
-recfsusb2n ver. 0.9.2 (Linux版)
+recfsusb2n ver. 0.9.2 (Linux版、狂気の改変版)
 http://tri.dw.land.to/fsusb2n/
 
 責任は負いません。自己責任で行ってください。
@@ -20,11 +20,10 @@ B25      = -DB25
 デバイスに対応するファイルの書き込み権限が必要です。
 
 必要な物:
-*  g++ コンパイル環境
+*  g++ コンパイル環境(cmake使用)
 *  boostライブラリ
 
 まるも氏のARIB STD-B25 仕様確認テストプログラムに、FSUSB2のチューナーをアクセスするように改変したものです。
 元のプログラムについては
 arib25/readme.txt を参照してください。
 
-◆WPjeGg6tSA
