@@ -27,3 +27,9 @@ B25      = -DB25
 元のプログラムについては
 arib25/readme.txt を参照してください。
 
+## for debian
+```bash
+sudo apt install make libboost-all-dev
+cd src
+make
+```
