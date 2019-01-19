@@ -37,3 +37,19 @@ sudo apt install make libboost-all-dev
 cd src
 make
 ```
+
+## パッチについて
+
+katauna氏の `recfsusb2n_http_patch2.zip` を適用しています。
+
+http://d.hatena.ne.jp/katauna/searchdiary?word=recfsusb2n
+
+
+### パッチの変更点
+
+- recpt1ctlに対応
+- チューニング完了判定の数値を変更（"pDev->DeMod_GetSequenceState() < 8"の8を9に）
+- 受信開始時安定化待ち処理追加
+- httpサーバ機能移植(--http portnumber)
+- tssplitter_liteを内臓(--sid n1,n2,.. number,all,hd,sd1,sd2,sd3,1seg,epg)
+- 受信開始前にウェイトを入れるオプションを追加(--wait n[1=100mSec])
